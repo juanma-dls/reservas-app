@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  name      String
+  email     String     @unique
+  password  String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  reservations Reservation[]
+}
+
+model Service {
+  id        Int       @id @default(autoincrement())
+  name      String
+  price     Decimal?  @db.Decimal(10,2)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  reservations Reservation[]
+}
+
+model Reservation {
+  id         Int       @id @default(autoincrement())
+  startTime  DateTime  // inicio del turno
+  user       User      @relation(fields: [userId], references: [id])
+  userId     Int
+  service    Service   @relation(fields: [serviceId], references: [id])
+  serviceId  Int
+  status     ReservationStatus @default(PENDING)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model BusinessConfig {
+  id              Int       @id @default(autoincrement())
+  slotInterval    Int
+  openingHour     String
+  closingHour     String
+  disabledDays    Int[]
+  disabledDates   DisabledDate[]
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model DisabledDate { // Dias especificos deshabilidatos 
+  id       Int       @id @default(autoincrement())
+  date     DateTime  @unique
+  config   BusinessConfig @relation(fields: [configId], references: [id])
+  configId Int
+}
+
+enum ReservationStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
