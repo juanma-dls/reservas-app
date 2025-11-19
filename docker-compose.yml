@@ -1,29 +1,13 @@
 version: '3.8'
 
 services:
-  api:
-    build: .
-    container_name: reservas-api
-    restart: always
-    command: npm run start:dev
-    ports:
-      - "3000:3000"
-      - "5555:5555"
-    volumes:
-      - .:/app
-      - /app/node_modules
-    depends_on:
-      - postgres
-    environment:
-      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/reservas?schema=public"
-
   postgres:
     image: postgres:15
     container_name: reservas-postgres
     restart: always
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_PASSWORD: rootPassword
       POSTGRES_DB: reservas
     ports:
       - "5432:5432"
