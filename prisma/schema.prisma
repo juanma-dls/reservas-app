@@ -5,8 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated"
+  provider = "prisma-client-js"
+  // output   = "../src/generated"
 }
 
 datasource db {
@@ -45,11 +45,11 @@ model Reservation {
   updatedAt  DateTime  @updatedAt
 }
 
-model BusinessConfig {
+model BusinessConfig { // Configuracion del negocio
   id              Int       @id @default(autoincrement())
-  slotInterval    Int
-  openingHour     String
-  closingHour     String
+  slotInterval    Int       // intevalo de tiempo en minutos
+  openingHour     String    // hora de apertura o inicio de turnos
+  closingHour     String    // hora de cierre o fin de turnos
   disabledDays    Int[]
   disabledDates   DisabledDate[]
   createdAt       DateTime  @default(now())
