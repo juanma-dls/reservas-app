@@ -17,6 +17,15 @@ async function bootstrap() {
     .setTitle('Reservations API')
     .setDescription('API for managing reservations')
     .setVersion('0.1')
+    .addBearerAuth({
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+      in: 'headerl',
+      name: 'Authorization',
+      description: 'Enter your Bearer token',
+    })
+    .addSecurityRequirements('bearer')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
