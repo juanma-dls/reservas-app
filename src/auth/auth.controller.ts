@@ -8,6 +8,7 @@ import {
 import { LoginDto } from './dto/login.dto';
 import { AuthService } from './auth.service';
 import { Public } from './decorators/public.decorator';
+import { RegisterDto } from './dto/register.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -21,5 +22,11 @@ export class AuthController {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
 
     return userToken;
+  }
+
+  @Post('register')
+  @Public()
+  async register(@Body() data: RegisterDto) {
+    return this.authService.register(data);
   }
 }

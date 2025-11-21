@@ -1,6 +1,8 @@
 import {
   BadRequestException,
+  ConflictException,
   Injectable,
+  InternalServerErrorException,
   Logger,
   NotFoundException,
 } from '@nestjs/common';
@@ -8,6 +10,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class UsersService {
@@ -19,18 +22,23 @@ export class UsersService {
     try {
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(data.password, salt);
-      return await this.prisma.user.create({
-        data: {
-          ...data,
-          password: hashedPassword,
-        },
+
+      const user = await this.prisma.user.create({
+        data: { ...data, password: hashedPassword },
       });
+
+      const { password: _, ...safeUser } = user;
+      return safeUser;
     } catch (error: unknown) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          throw new ConflictException('Email is already registered');
+        }
+      }
       if (error instanceof Error) {
         this.logger.error(error.message);
-      } else {
-        this.logger.error('Unexpected error');
       }
+      throw new InternalServerErrorException('Unexpected server error');
     }
   }
 

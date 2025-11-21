@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Transform, TransformFnParams } from 'class-transformer';
 import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import { Transform, TransformFnParams } from 'class-transformer';
 
-export class CreateUserDto {
+export class RegisterDto {
   @ApiProperty({ example: 'Name' })
   @IsNotEmpty()
   @IsString()
@@ -24,8 +24,4 @@ export class CreateUserDto {
   @MinLength(8)
   @Transform(({ value }: TransformFnParams) => (value as string)?.trim())
   readonly password: string;
-
-  @ApiProperty({ example: 'CUSTOMER', enum: ['ADMIN', 'CUSTOMER', 'USER'] })
-  @IsNotEmpty()
-  readonly type: 'ADMIN' | 'CUSTOMER' | 'USER';
 }
