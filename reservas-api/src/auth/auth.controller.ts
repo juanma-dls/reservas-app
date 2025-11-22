@@ -16,12 +16,16 @@ export class AuthController {
   @Post('login')
   @Public()
   async login(@Body() data: LoginDto) {
-    const userToken = await this.authService.validateUser(data);
+    const loginResult = await this.authService.validateUser(data);
 
-    if (!userToken)
-      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    if (!loginResult) {
+      throw new HttpException(
+        'Credenciales inválidas',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
 
-    return userToken;
+    return loginResult;
   }
 
   @Post('register')
