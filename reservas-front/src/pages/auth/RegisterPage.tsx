@@ -1,4 +1,4 @@
-import { RegisterForm } from '@/features/auth/register-form';
+import { RegisterForm } from '@/components/form/auth/RegisterForm';
 
 export default function RegisterPage() {
   return (
@@ -11,9 +11,12 @@ export default function RegisterPage() {
         />
       </div>
       <div className="flex flex-col p-4 md:p-6 lg:p-10">
-        <div className="flex justify-center gap-2 md:justify-start">
+        <div className="flex justify-center gap-2 md:justify-center ">
+          <a href="/" className="text-3xl text-center font-extrabold title text-4xl">
+            TurnosYa!
+          </a>
         </div>
-        <div className="flex items-center justify-center py-12 lg:py-20"> 
+        <div className="flex items-center justify-center pb-12 pt-8"> 
           <div className="w-full max-w-sm lg:max-w-md">
             <div className="flex flex-col items-center gap-1 text-center">
               <h1 className="text-2xl font-bold">Crea tu cuenta</h1>

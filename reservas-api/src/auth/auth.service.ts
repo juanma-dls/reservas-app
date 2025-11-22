@@ -24,10 +24,13 @@ export class AuthService {
     const isValid = await bcrypt.compare(user.password, foundUser.password);
 
     if (isValid) {
-      return this.jwtService.sign({
+      const { password: _, ...userWithoutPassword } = foundUser;
+      const token = this.jwtService.sign({
         id: foundUser.id,
         email: foundUser.email,
       });
+
+      return { token, user: userWithoutPassword };
     }
   }
 

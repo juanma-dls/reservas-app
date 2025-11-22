@@ -54,6 +54,9 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  --switch-light: #ffed64;
+  --switch-dark: #646cff;
 }
 
 a {
@@ -93,6 +96,11 @@ button {
   transition: border-color 0.25s, background-color 0.25s, color 0.25s;
 }
 
+.avatar {
+  background-color: var(--secondary);
+  color: var(--primary)
+}
+
 button:hover {
   border-color: #646cff;
 }
@@ -101,7 +109,6 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-
 
 @media (prefers-color-scheme: light) {
   a:hover {
@@ -112,8 +119,6 @@ button:focus-visible {
     background-color: var(--primary);
   }
 }
-
-
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -184,8 +189,18 @@ button:focus-visible {
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
-}
+  --sidebar: hsl(240 5.9% 10%);
+  --sidebar-foreground: hsl(240 4.8% 95.9%);
+  --sidebar-primary: hsl(224.3 76.3% 48%);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(240 3.7% 15.9%);
+  --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
+  --sidebar-border: hsl(240 3.7% 15.9%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
 
+  --switch-bg: #646cff;
+  --switch-foreground: var(--foreground);
+}
 
 @layer base {
   * {
@@ -197,32 +212,11 @@ button:focus-visible {
   }
 }
 
-
-.button-toggle-theme {
-  @apply relative flex items-center justify-center;
-
-  width: 2.5rem;
-  height: 2.5rem;
-
-  background-color: #ffed64;
-  color: var(--background-foreground);
-
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border);
-
-  transition:
-    background-color 0.25s,
-    color 0.25s,
-    border-color 0.25s,
-    transform 0.2s ease-in-out;
+span.bg-yellow-300 {
+  background-color: var(--switch-light);
 }
 
-.button-toggle-theme:hover {
-  border-color: var(--primary);
-  transform: scale(1.05);
+.dark span.dark\:bg-indigo-400 {
+  background-color: var(--switch-dark);
 }
 
-.dark .button-toggle-theme {
-  background-color: #646cff;
-  color: var(--foreground);
-}

@@ -19,8 +19,14 @@ export default defineConfig([
       'react/jsx-uses-react': 'off',
 
       'no-unused-vars': 'off', 
-      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
-
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' },
+        'error',
+        {
+          'argsIgnorePattern': '^_', 
+          'varsIgnorePattern': '^_',
+          'caughtErrorsIgnorePattern': '^_',
+        },
+      ],
       'semi': ['error', 'always'], 
       'comma-dangle': ['error', 'always-multiline'], 
       'no-multi-spaces': 'error', 

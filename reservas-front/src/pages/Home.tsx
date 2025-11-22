@@ -1,9 +1,11 @@
+import Footer from '@/components/layouts/footer';
+import Navbar from '@/components/layouts/navbar';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <><><Navbar /><div className="min-h-screen bg-background">
       <main>
         <section className="bg-gradient-to-b from-primary/20 to-secondary/20 py-28 text-center rounded-b-3xl">
           <div className="container mx-auto px-4">
@@ -36,7 +38,7 @@ const Home = () => {
           </div>
         </section>
       </main>
-    </div>
+    </div></><Footer /></>
   );
 };
 

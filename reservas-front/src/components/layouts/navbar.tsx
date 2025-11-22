@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import AuthButtons from '../form/auth/authButtons';
 import { ModeToggle } from '../mode-toggle';
 
 const Navbar = () => (
@@ -15,12 +15,7 @@ const Navbar = () => (
       </nav>
 
       <div className="flex items-center space-x-2">
-        <Button variant="ghost" asChild>
-          <a href="/login">Iniciar Sesión</a>
-        </Button>
-        <Button className="hidden md:block" asChild>
-          <a href="/register">Registrarse</a>
-        </Button>
+        <AuthButtons />
         <div className="hidden md:block">
           <ModeToggle />
         </div>

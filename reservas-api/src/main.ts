@@ -31,6 +31,14 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
+  const frontendUrl = process.env.FRONTEND_URL;
+
+  app.enableCors({
+    origin: frontendUrl,
+    credentials: true, //para sesiones o cookies
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  });
+
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap().catch((err) => {
