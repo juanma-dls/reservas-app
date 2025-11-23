@@ -57,6 +57,8 @@
 
   --switch-light: #ffed64;
   --switch-dark: #646cff;
+
+  --avatar-bg: oklch(62.006% 0.00007 271.152);
 }
 
 a {
@@ -200,6 +202,8 @@ button:focus-visible {
 
   --switch-bg: #646cff;
   --switch-foreground: var(--foreground);
+
+  --avatar-bg: oklch(62.006% 0.00007 271.152);
 }
 
 @layer base {
@@ -220,3 +224,6 @@ span.bg-yellow-300 {
   background-color: var(--switch-dark);
 }
 
+span.avatar {
+  background-color: var(--avatar-bg);
+}

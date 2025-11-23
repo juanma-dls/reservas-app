@@ -13,7 +13,7 @@ import { register } from '@/services/auth';
 import { useNavigate } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
 import type { RegisterPayload } from '@/types/auth';
-import { useAuth } from '@/services/useAuth';
+import { useAuth } from '@/hooks/useAuth';
 
 
 export function RegisterForm({

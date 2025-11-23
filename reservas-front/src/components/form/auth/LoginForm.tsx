@@ -18,7 +18,7 @@ import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { login } from '@/services/auth';
 import type { LoginPayload } from '@/types/auth';
-import { useAuth } from '@/services/useAuth';
+import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
 export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) {

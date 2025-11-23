@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { register } from '@/services/auth';
-import { useAuth } from '@/services/useAuth';
+import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import type { RegisterPayload } from '@/types/auth';
 
@@ -19,7 +19,7 @@ export function useRegister() {
       const { token, user } = await register(payload);
 
       authContext.login(token, user);
-      navigate('/dashboard');
+      navigate('/');
     } catch (err) {
       console.error('Error al registrar usuario:', err);
 

@@ -1,4 +1,4 @@
-import { useAuth } from '@/services/useAuth';
+import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 
 const AuthButtons = () => {
