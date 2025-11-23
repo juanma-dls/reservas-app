@@ -52,7 +52,7 @@ export default function UserShowPage() {
                 <AvatarImage src={user.avatarUrl} alt={user.name} />
               ) : (
                 <AvatarFallback className="text-2xl font-medium bg-primary text-primary-foreground">
-                  {user.name[0]}{user.lastname[0]}
+                  {user.name[0].toUpperCase()}{user.lastname[0].toUpperCase()}
                 </AvatarFallback>
               )}
             </Avatar>

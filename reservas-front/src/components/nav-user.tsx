@@ -35,12 +35,6 @@ export function NavUser() {
 
   if (!user) return null;
 
-  const getInitials = (fullName: string) => {
-    const names = fullName.split(' ');
-    const first = names[0]?.[0] || '';
-    const last = names[1]?.[0] || '';
-    return (first + last).toUpperCase();
-  };
   const preventClose = (e: Event) => {
 
     e.preventDefault();
@@ -60,7 +54,7 @@ export function NavUser() {
                   <AvatarImage src={user.avatar} alt={user.name} />
                 ) : (
                   <AvatarFallback className="rounded-lg">
-                    {getInitials(user.name)}
+                    {user.name[0].toUpperCase()}{user.lastname[0].toUpperCase()}
                   </AvatarFallback>
                 )}
               </Avatar>
@@ -85,7 +79,7 @@ export function NavUser() {
                     <AvatarImage src={user.avatar} alt={user.name} />
                   ) : (
                     <AvatarFallback className="rounded-lg">
-                      {getInitials(user.name)}
+                      {user.name[0].toUpperCase()}{user.lastname[0].toUpperCase()}
                     </AvatarFallback>
                   )}
                 </Avatar>
@@ -116,7 +110,7 @@ export function NavUser() {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={logout}>
+            <DropdownMenuItem onClick={() => logout()}>
               <IconLogout />
               Log out
             </DropdownMenuItem>
