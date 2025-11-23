@@ -9,6 +9,7 @@ import LoginPage from './auth/LoginPage';
 import { NotFoundPage } from './NotFoundPage';
 import UsersPage from './users/UsersPage';
 import PrivateHomePage from './PrivateHomePage';
+import UserShowPage from './users/UsersShowPage';
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
           >
             <Route path="dashboard" element={<PrivateHomePage />} />
             <Route path="users" element={<UsersPage />} />
+            <Route path="users/:id" element={<UserShowPage />} />
           </Route>
 
           <Route path="*" element={<NotFoundPage />} />
