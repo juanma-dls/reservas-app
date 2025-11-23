@@ -136,18 +136,19 @@ export function RegisterForm({
             value={form.password}
             onChange={handleInputChange}
           />
-          {isPasswordTooShort ? (
-             <FieldDescription className='text-red-500'>
-                Debe tener al menos 8 caracteres.
-            </FieldDescription>
-          ) : (
-            <FieldDescription>
-              Debe tener al menos 8 caracteres.
-            </FieldDescription>
-          )}
+          <FieldDescription
+            className={
+              form.password.length === 0
+                ? 'text-muted-foreground'
+                : form.password.length >= 8
+                ? 'text-green-500'
+                : 'text-red-500'
+            }
+          >
+            Debe tener al menos 8 caracteres.
+          </FieldDescription>
         </Field>
         
-        {/* Confirmar contraseña */}
         <Field>
           <FieldLabel htmlFor="confirmPassword">Confirmar contraseña</FieldLabel>
           <Input 
@@ -157,17 +158,22 @@ export function RegisterForm({
             value={form.confirmPassword}
             onChange={handleInputChange}
           />
-          {passwordMismatch ? (
-            // Mensaje de error si no coinciden
-            <FieldDescription className="text-red-500">
-              Las contraseñas no coinciden.
-            </FieldDescription>
-          ) : (
-            // Mensaje de descripción normal
-            <FieldDescription>
-              Por favor, confirme su contraseña.
-            </FieldDescription>
-          )}
+          <FieldDescription
+            className={
+              form.confirmPassword.length === 0
+                ? 'text-muted-foreground'
+                : passwordMismatch
+                ? 'text-red-500' 
+                : 'text-green-500'
+            }
+          >
+            {form.confirmPassword.length === 0
+              ? 'Por favor, confirme su contraseña.'
+              : passwordMismatch
+              ? 'Las contraseñas no coinciden.'
+              : 'Las contraseñas coinciden.'
+            }
+          </FieldDescription>
         </Field>
 
         {/* Mensaje de Error General (servidor) */}

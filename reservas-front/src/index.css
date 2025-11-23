@@ -15,63 +15,62 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* Paleta base */
-  --radius: 0.625rem;
+  --radius: 0.5rem; /* Mantener el radio suave */
 
-  /* Light mode */
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --background: hsl(0 0% 100%);
+  --foreground: hsl(222.2 47.4% 11.2%); /* Texto oscuro principal */
 
-  --card: #282828;
-  --card-foreground: oklch(0.985 0 0);
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(222.2 47.4% 11.2%);
 
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(222.2 47.4% 11.2%);
 
-  --primary: #282828;
-  --primary-foreground: oklch(0.985 0 0);
+  --primary: hsl(250 60% 50%); /* Morado principal */
+  --primary-foreground: hsl(0 0% 100%); /* Texto blanco para botones primarios */
 
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
+  --secondary: hsl(250 20% 95%); /* Morado muy claro para secundarios */
+  --secondary-foreground: hsl(250 60% 30%); /* Texto morado oscuro para secundarios */
 
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
+  --muted: hsl(210 40% 96.1%);
+  --muted-foreground: hsl(215.4 16.3% 46.9%);
 
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --accent: hsl(250 20% 95%); /* Acento en morado claro */
+  --accent-foreground: hsl(250 60% 30%); /* Texto en morado oscuro para acentos */
 
-  --destructive: oklch(0.577 0.245 27.325);
+  --destructive: hsl(0 84.2% 60.2%);
 
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --border: hsl(250 20% 90%); /* Borde gris-morado claro */
+  --input: hsl(250 20% 90%);
+  --ring: hsl(250 60% 50%); /* Anillo de foco en morado principal */
 
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: hsl(0 0% 100%);
+  --sidebar-foreground: hsl(222.2 47.4% 11.2%);
+  --sidebar-primary: hsl(250 60% 50%);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(250 20% 95%);
+  --sidebar-accent-foreground: hsl(250 60% 30%);
+  --sidebar-border: hsl(250 20% 90%);
+  --sidebar-ring: hsl(250 60% 50%);
 
-  --switch-light: #ffed64;
-  --switch-dark: #646cff;
+  --switch-light: hsl(48 93% 70%); /* Amarillo claro */
+  --switch-dark: hsl(250 60% 50%); /* Morado primary para el switch */
 
-  --avatar-bg: oklch(62.006% 0.00007 271.152);
+  --avatar-bg: hsl(250 60% 50%); /* Fondo del avatar en morado */
+  --label: hsl(215.4 16.3% 46.9%);
 }
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--primary);
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: hsl(250 60% 40%);
 }
 
 .title {
-  color: #646cff;
+  color: var(--primary);
 }
 
 body {
@@ -92,33 +91,23 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: var(--primary);
-  color: var(--primary-foreground);
   cursor: pointer;
   transition: border-color 0.25s, background-color 0.25s, color 0.25s;
 }
 
-.avatar {
-  background-color: var(--secondary);
-  color: var(--primary)
-}
-
 button:hover {
-  border-color: #646cff;
+  border-color: var(--primary);
 }
 
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+  outline-color: var(--ring);
 }
 
 @media (prefers-color-scheme: light) {
   a:hover {
-    color: #747bff;
-  }
-
-  button {
-    background-color: var(--primary);
+    color: hsl(250 60% 40%);
   }
 }
 
@@ -165,50 +154,52 @@ button:focus-visible {
 }
 
 .dark {
-  --background: oklch(0.26 0 0);
-  --foreground: oklch(0.985 0 0);
+  --background: hsl(224 71.4% 4.1%);
+  --foreground: hsl(210 20% 98%);
 
-  --card: oklch(0.922 0 0);
-  --card-foreground: oklch(0.205 0 0);
+  --card: hsl(220 50% 10%);
+  --card-foreground: hsl(210 20% 98%);
 
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
+  --popover: hsl(224 71.4% 4.1%);
+  --popover-foreground: hsl(210 20% 98%);
 
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
+  --primary: hsl(250 70% 60%); /* Morado principal más vibrante en oscuro */
+  --primary-foreground: hsl(222.2 47.4% 11.2%); /* Texto oscuro para botones primarios */
 
-  --secondary: #747bff;
-  --secondary-foreground: oklch(0.985 0 0);
+  --secondary: hsl(250 20% 20%); /* Morado oscuro para secundarios */
+  --secondary-foreground: hsl(210 20% 98%); /* Texto blanco para secundarios */
 
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
+  --muted: hsl(215 27.9% 16.9%);
+  --muted-foreground: hsl(217.9 10.6% 64.9%);
 
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --accent: hsl(250 20% 20%); /* Acento en morado oscuro */
+  --accent-foreground: hsl(210 20% 98%);
 
-  --destructive: oklch(0.704 0.191 22.216);
+  --destructive: hsl(0 62.8% 30.6%);
 
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --sidebar: hsl(240 5.9% 10%);
-  --sidebar-foreground: hsl(240 4.8% 95.9%);
-  --sidebar-primary: hsl(224.3 76.3% 48%);
-  --sidebar-primary-foreground: hsl(0 0% 100%);
-  --sidebar-accent: hsl(240 3.7% 15.9%);
-  --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
-  --sidebar-border: hsl(240 3.7% 15.9%);
-  --sidebar-ring: hsl(217.2 91.2% 59.8%);
+  --border: hsl(250 20% 25%); /* Borde gris-morado oscuro */
+  --input: hsl(250 20% 25%);
+  --ring: hsl(250 70% 60%); /* Anillo de foco en morado principal */
 
-  --switch-bg: #646cff;
+  --sidebar: hsl(224 71.4% 4.1%);
+  --sidebar-foreground: hsl(210 20% 98%);
+  --sidebar-primary: hsl(250 70% 60%);
+  --sidebar-primary-foreground: hsl(222.2 47.4% 11.2%);
+  --sidebar-accent: hsl(250 20% 20%);
+  --sidebar-accent-foreground: hsl(210 20% 98%);
+  --sidebar-border: hsl(250 20% 25%);
+  --sidebar-ring: hsl(250 70% 60%);
+
+  --switch-bg: hsl(250 70% 60%); /* Morado primary para el switch */
   --switch-foreground: var(--foreground);
 
-  --avatar-bg: oklch(62.006% 0.00007 271.152);
+  --avatar-bg: hsl(250 70% 60%); /* Fondo del avatar en morado */
+  --label: hsl(217.9 10.6% 64.9%);
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
   }
 
   body {
@@ -222,8 +213,4 @@ span.bg-yellow-300 {
 
 .dark span.dark\:bg-indigo-400 {
   background-color: var(--switch-dark);
-}
-
-span.avatar {
-  background-color: var(--avatar-bg);
 }

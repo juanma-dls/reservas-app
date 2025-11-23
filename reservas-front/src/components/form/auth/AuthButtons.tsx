@@ -12,7 +12,7 @@ const AuthButtons = () => {
         <a href="/login">Iniciar Sesión</a>
       </Button>
       <Button className="hidden md:block" asChild>
-        <a href="/register">Registrarse</a>
+        <a href="/register" className="!text-primary-foreground hover:!text-primary-foreground" >Registrarse</a>
       </Button>
     </>
   );
