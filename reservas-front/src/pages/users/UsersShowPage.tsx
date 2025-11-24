@@ -3,11 +3,12 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { DetailItem } from "@/components/ui/detail-item";
 import { ArrowLeft, Pencil } from "lucide-react";
-import { getUserById } from "@/services/users";
+import { getUserById } from "@/services/users.service";
 import { useNavigate, useParams } from "react-router-dom";
 import { formatDateTime } from "@/utils/formtDate";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import type { User } from "@/types/user";
+import type { User } from "@/types/users/user";
+import { Reload } from "@/components/ui/reload";
 
 export default function UserShowPage() {
   const { id } = useParams<{ id: string }>();
@@ -31,7 +32,7 @@ export default function UserShowPage() {
     load();
   }, [id]);
 
-  if (loading) return <p className="text-center py-10">Cargando...</p>;
+  if (loading) return <p className="text-center py-10"><Reload message="Cargando datos del usuario..." /></p>;
   if (!user) return <p className="text-center py-10">Usuario no encontrado</p>;
 
   return (
@@ -44,7 +45,6 @@ export default function UserShowPage() {
       </div>
 
       <Card className="w-full shadow-xl">
-        {/* Fila principal: Avatar | Info | Acciones */}
         <CardHeader className="p-6 border-b">
           <div className="flex flex-col md:flex-row md:items-center gap-6">
             <Avatar className="size-20 border-2 border-primary/50 flex-shrink-0">

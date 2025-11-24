@@ -1,4 +1,3 @@
-"use client";
 import { MoreHorizontal } from "lucide-react";
 import {
   DropdownMenu,
@@ -9,22 +8,25 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { Row } from "@tanstack/react-table";
+import type { User } from "@/types/users/user";
 
-interface RowActionsProps<TData> {
-  row: Row<TData>;
-  onView?: (data: TData) => void;
-  onEdit?: (data: TData) => void;
-  onDelete?: (data: TData) => void;
+interface DataTableRowActionsProps {
+  row: Row<User>;
+  onView: (user: User) => void;
+  onEdit: (user: User) => void;
+  onDelete: (user: User) => void;
+  onRestore: (user: User) => void;
 }
 
-export function DataTableRowActions<TData>({
+export function DataTableRowActions({
   row,
   onView,
   onEdit,
   onDelete,
-}: RowActionsProps<TData>) {
-  const item = row.original;
-
+  onRestore,
+}: DataTableRowActionsProps) {
+  const user = row.original;
+  const isDeleted = !!user.deletedAt;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -37,27 +39,37 @@ export function DataTableRowActions<TData>({
         <DropdownMenuLabel>Acciones</DropdownMenuLabel>
 
         {onView && (
-          <DropdownMenuItem onClick={() => onView(item)}>
+          <DropdownMenuItem onClick={() => onView(user)}>
             Ver detalle
           </DropdownMenuItem>
         )}
 
         {onEdit && (
-          <DropdownMenuItem onClick={() => onEdit(item)}>
+          <DropdownMenuItem onClick={() => onEdit(user)}>
             Editar
           </DropdownMenuItem>
         )}
 
         <DropdownMenuSeparator />
-
-        {onDelete && (
-          <DropdownMenuItem
-            className="text-red-600"
-            onClick={() => onDelete(item)}
-          >
-            Eliminar
-          </DropdownMenuItem>
+        { !isDeleted ? (
+          onDelete && (
+            <DropdownMenuItem
+              className="text-red-600"
+              onClick={() => onDelete(user)}
+            >
+              Eliminar
+            </DropdownMenuItem>
+          )
+        ) : (onRestore && (
+            <DropdownMenuItem
+              className="text-green-600"
+              onClick={() => onRestore(user)}
+            >
+              Restaurar
+            </DropdownMenuItem>
+          )
         )}
+        
       </DropdownMenuContent>
     </DropdownMenu>
   );
