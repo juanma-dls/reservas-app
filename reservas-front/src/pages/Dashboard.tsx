@@ -4,6 +4,7 @@ import {
   SidebarInset,
   SidebarProvider,
 } from '@/components/ui/sidebar';
+import { Outlet } from 'react-router-dom';
 
 export default function Dashboard() {
   return (
@@ -18,22 +19,14 @@ export default function Dashboard() {
       <AppSidebar variant="inset" />
       <SidebarInset>
         <SiteHeader />
-        <section className="
-            min-h-[calc(100vh-4rem)] 
-            bg-gradient-to-b from-primary/10 to-secondary/5 
-            text-center rounded-b-3xl 
-            flex items-center justify-center 
-            pt-16 sm:pt-0"
+        <main 
+          className="min-h-[calc(100vh-4rem)] bg-gradient-to-b from-primary/10 to-secondary/5"
+          style={{ paddingTop: 'var(--header-height)' }}
         >
-          <div className="flex flex-1 flex-col">
-          <div className="@container/main flex flex-1 flex-col gap-2">
-            <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-              <div className="px-4 lg:px-6">
-              </div>
-            </div>
+          <div className="flex flex-col px-4 lg:px-6 py-6 gap-6">
+            <Outlet />
           </div>
-        </div>
-        </section>
+        </main>
       </SidebarInset>
     </SidebarProvider>
   );

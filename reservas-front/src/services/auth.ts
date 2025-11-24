@@ -1,4 +1,4 @@
-import type { User } from '@/types/user';
+import type { User } from '@/types/users/user';
 import api from '../api/api';
 import type { LoginPayload } from '@/types/auth';
 

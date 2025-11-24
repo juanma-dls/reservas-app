@@ -18,13 +18,16 @@ import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { login } from '@/services/auth';
 import type { LoginPayload } from '@/types/auth';
-import { useAuth } from '@/services/useAuth';
+import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import { useAlert } from '@/services/AlertProvider';
+import { Loader2 } from 'lucide-react';
 
 export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) {
   const [form, setForm] = useState<LoginPayload>({ email: '', password: '' });
-  const [error, setError] = useState<string | null>(null);
+  const [, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { setAlert } = useAlert();
 
   const authContext = useAuth();
   const navigate = useNavigate();
@@ -42,11 +45,21 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
         authContext.login(token, user);
         navigate('/dashboard');
       } else {
-        setError('No se pudo obtener la información del usuario');
+        setAlert({
+          type: 'error',
+          title: 'Fallo de Autenticación',
+          message: 'No se pudo obtener la información del usuario',
+          duration: 3000,
+  });
       }
     } catch (err) {
       console.error('Error al iniciar sesión:', err);
-      setError('Credenciales inválidas');
+      setAlert({
+        type: 'error',
+        title: 'Fallo de Autenticación',
+        message: 'El email o la contraseña son incorrectos.',
+        duration: 3000,
+  });
     } finally {
       setIsLoading(false);
     }
@@ -100,9 +113,19 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
                   }
                 />
               </Field>
-              {error && <div className="text-red-500 text-sm my-2">{error}</div>}
-              <Button className="w-full h-11 text-base mt-4" disabled={isLoading}>
-                {isLoading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
+              <Button 
+                type="submit" 
+                className="w-full" 
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Iniciando sesión...
+                  </>
+                ) : (
+                  'Iniciar Sesión'
+                )}
               </Button>
 
               <FieldSeparator />

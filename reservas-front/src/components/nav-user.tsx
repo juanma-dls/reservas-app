@@ -25,22 +25,18 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
-import { useAuth } from '@/services/useAuth';
+import { useAuth } from '@/hooks/useAuth';
 import { ModeToggle } from './mode-toggle';
+import { useNavigate } from 'react-router-dom';
 
 export function NavUser() {
+  const navigate = useNavigate()
   const { user, logout } = useAuth();
   
   const { isMobile } = useSidebar();
 
   if (!user) return null;
 
-  const getInitials = (fullName: string) => {
-    const names = fullName.split(' ');
-    const first = names[0]?.[0] || '';
-    const last = names[1]?.[0] || '';
-    return (first + last).toUpperCase();
-  };
   const preventClose = (e: Event) => {
 
     e.preventDefault();
@@ -55,12 +51,12 @@ export function NavUser() {
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <Avatar className="h-8 w-8 rounded-lg grayscale">
+              <Avatar className="h-8 w-8 rounded-lg avatar">
                 {user.avatar ? (
                   <AvatarImage src={user.avatar} alt={user.name} />
                 ) : (
                   <AvatarFallback className="rounded-lg">
-                    {getInitials(user.name)}
+                    {user.name[0].toUpperCase()}{user.lastname[0].toUpperCase()}
                   </AvatarFallback>
                 )}
               </Avatar>
@@ -85,7 +81,7 @@ export function NavUser() {
                     <AvatarImage src={user.avatar} alt={user.name} />
                   ) : (
                     <AvatarFallback className="rounded-lg">
-                      {getInitials(user.name)}
+                      {user.name[0].toUpperCase()}{user.lastname[0].toUpperCase()}
                     </AvatarFallback>
                   )}
                 </Avatar>
@@ -102,9 +98,9 @@ export function NavUser() {
                 <ModeToggle stopPropagation={true} />
               </DropdownMenuItem>
               
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate(`/users/${user.id}`)}>
                 <IconUserCircle />
-                Account
+                Perfil
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <IconCreditCard />
@@ -116,7 +112,7 @@ export function NavUser() {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={logout}>
+            <DropdownMenuItem onClick={() => logout()}>
               <IconLogout />
               Log out
             </DropdownMenuItem>

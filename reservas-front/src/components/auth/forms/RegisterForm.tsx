@@ -13,7 +13,7 @@ import { register } from '@/services/auth';
 import { useNavigate } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
 import type { RegisterPayload } from '@/types/auth';
-import { useAuth } from '@/services/useAuth';
+import { useAuth } from '@/hooks/useAuth';
 
 
 export function RegisterForm({
@@ -85,8 +85,7 @@ export function RegisterForm({
     <form className={cn('flex flex-col gap-6', className)} onSubmit={handleSubmit} {...props}>
       <FieldGroup>
         <FieldSeparator className='mt-3'/>
-        
-        {/* Nombre y Apellido */}
+
         <Field className="grid grid-cols-2 gap-4">
           <Field>
             <FieldLabel htmlFor="name">Nombre</FieldLabel>
@@ -110,7 +109,6 @@ export function RegisterForm({
           </Field>
         </Field>
         
-        {/* Email */}
         <Field>
           <FieldLabel htmlFor="email">Email</FieldLabel>
           <Input 
@@ -136,51 +134,53 @@ export function RegisterForm({
             value={form.password}
             onChange={handleInputChange}
           />
-          {isPasswordTooShort ? (
-             <FieldDescription className='text-red-500'>
-                Debe tener al menos 8 caracteres.
-            </FieldDescription>
-          ) : (
-            <FieldDescription>
-              Debe tener al menos 8 caracteres.
-            </FieldDescription>
-          )}
+          <FieldDescription
+            className={
+              form.password.length === 0
+                ? 'text-muted-foreground'
+                : form.password.length >= 8
+                ? 'text-green-500'
+                : 'text-red-500'
+            }
+          >
+            Debe tener al menos 8 caracteres.
+          </FieldDescription>
         </Field>
         
-        {/* Confirmar contraseña */}
         <Field>
           <FieldLabel htmlFor="confirmPassword">Confirmar contraseña</FieldLabel>
           <Input 
-            id="confirmPassword" // Uniformado a camelCase
+            id="confirmPassword"
             type="password" 
             required 
             value={form.confirmPassword}
             onChange={handleInputChange}
           />
-          {passwordMismatch ? (
-            // Mensaje de error si no coinciden
-            <FieldDescription className="text-red-500">
-              Las contraseñas no coinciden.
-            </FieldDescription>
-          ) : (
-            // Mensaje de descripción normal
-            <FieldDescription>
-              Por favor, confirme su contraseña.
-            </FieldDescription>
-          )}
+          <FieldDescription
+            className={
+              form.confirmPassword.length === 0
+                ? 'text-muted-foreground'
+                : passwordMismatch
+                ? 'text-red-500' 
+                : 'text-green-500'
+            }
+          >
+            {form.confirmPassword.length === 0
+              ? 'Por favor, confirme su contraseña.'
+              : passwordMismatch
+              ? 'Las contraseñas no coinciden.'
+              : 'Las contraseñas coinciden.'
+            }
+          </FieldDescription>
         </Field>
 
-        {/* Mensaje de Error General (servidor) */}
         {error && (
             <div className="text-red-500 text-sm text-center font-medium mt-2">{error}</div>
         )}
-
-        {/* Botón de Enviar con Loading y Deshabilitado por Validación */}
         <Field>
           <Button 
             type="submit" 
             className="w-full" 
-            // El botón se deshabilita si está cargando, hay un error de coincidencia O si es muy corta.
             disabled={loading || passwordMismatch || isPasswordTooShort || form.password.length === 0 || form.confirmPassword.length === 0}
           >
             {loading ? (
