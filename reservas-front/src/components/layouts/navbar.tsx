@@ -1,4 +1,4 @@
-import AuthButtons from '../form/auth/AuthButtons';
+import AuthButtons from '../auth/AuthButtons';
 import { ModeToggle } from '../mode-toggle';
 
 const Navbar = () => (

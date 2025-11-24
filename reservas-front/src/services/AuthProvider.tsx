@@ -1,4 +1,4 @@
-import type { User } from '@/types/user';
+import type { User } from '@/types/users/user';
 import { createContext, useState, type ReactNode } from 'react';
 import { useAlert } from './AlertProvider';
 
@@ -7,7 +7,7 @@ export interface AuthContextType {
   user: User | null;
   isLoggingOut: boolean;
   login: (token: string, user: User) => void;
-  logout: (onRedirect?: () => void) => void;
+  logout: (options?: { onRedirect?: () => void; customAlert?: { title: string; message: string; type: 'error' | 'warning' | 'success' } | false }) => void;
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -37,7 +37,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
   const [user, setUser] = useState<User | null>(readUserFromStorage());
 
-  // Nueva bandera para evitar alertas falsas en PrivateRoute
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const login = (newToken: string, userData: User) => {
@@ -54,7 +53,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  const logout = (onRedirect?: () => void) => {
+  const logout = (
+    options: {
+      onRedirect?: () => void;
+      customAlert?: {
+        title: string;
+        message: string;
+        type: 'error' | 'warning' | 'success';
+      } | false;
+    } = {}
+  ) => {
     setIsLoggingOut(true);
 
     localStorage.removeItem('token');
@@ -70,7 +78,25 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       duration: 3000,
     });
 
-    if (typeof onRedirect === 'function') onRedirect();
+    if (options.customAlert === false) {
+      
+    } else if (options.customAlert) {
+      setAlert({
+        type: options.customAlert.type,
+        title: options.customAlert.title,
+        message: options.customAlert.message,
+        duration: 3000,
+      });
+    } else {
+      setAlert({
+        type: 'success',
+        title: 'Sesión cerrada',
+        message: '¡Hasta la próxima!',
+        duration: 3000,
+      });
+    }
+
+    if (typeof options.onRedirect === 'function') options.onRedirect();
 
     setTimeout(() => setIsLoggingOut(false), 2000);
   };
@@ -82,4 +108,4 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       {children}
     </AuthContext.Provider>
   );
-};
+}

@@ -85,8 +85,7 @@ export function RegisterForm({
     <form className={cn('flex flex-col gap-6', className)} onSubmit={handleSubmit} {...props}>
       <FieldGroup>
         <FieldSeparator className='mt-3'/>
-        
-        {/* Nombre y Apellido */}
+
         <Field className="grid grid-cols-2 gap-4">
           <Field>
             <FieldLabel htmlFor="name">Nombre</FieldLabel>
@@ -110,7 +109,6 @@ export function RegisterForm({
           </Field>
         </Field>
         
-        {/* Email */}
         <Field>
           <FieldLabel htmlFor="email">Email</FieldLabel>
           <Input 
@@ -152,7 +150,7 @@ export function RegisterForm({
         <Field>
           <FieldLabel htmlFor="confirmPassword">Confirmar contraseña</FieldLabel>
           <Input 
-            id="confirmPassword" // Uniformado a camelCase
+            id="confirmPassword"
             type="password" 
             required 
             value={form.confirmPassword}
@@ -176,17 +174,13 @@ export function RegisterForm({
           </FieldDescription>
         </Field>
 
-        {/* Mensaje de Error General (servidor) */}
         {error && (
             <div className="text-red-500 text-sm text-center font-medium mt-2">{error}</div>
         )}
-
-        {/* Botón de Enviar con Loading y Deshabilitado por Validación */}
         <Field>
           <Button 
             type="submit" 
             className="w-full" 
-            // El botón se deshabilita si está cargando, hay un error de coincidencia O si es muy corta.
             disabled={loading || passwordMismatch || isPasswordTooShort || form.password.length === 0 || form.confirmPassword.length === 0}
           >
             {loading ? (

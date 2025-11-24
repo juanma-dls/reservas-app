@@ -14,7 +14,10 @@ const Home = () => {
                 Reserva tus servicios al instante
               </h1>
               <p className="mt-4 text-xl text-muted-foreground max-w-2xl mx-auto">
-                Tu tiempo es valioso. Organizamos tus citas fácilmente.
+                Tu tiempo es valioso. Organizamos tus servicios fácilmente.
+              </p>
+              <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+                Pensado para vos.
               </p>
               <Button size="lg" className="mt-10 px-8 py-6 text-lg rounded-2xl shadow-md">
                 Reservar Ahora

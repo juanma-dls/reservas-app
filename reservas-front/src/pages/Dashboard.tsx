@@ -19,7 +19,10 @@ export default function Dashboard() {
       <AppSidebar variant="inset" />
       <SidebarInset>
         <SiteHeader />
-        <main className="min-h-[calc(100vh-4rem)] bg-gradient-to-b from-primary/10 to-secondary/5 pt-16 sm:pt-0">
+        <main 
+          className="min-h-[calc(100vh-4rem)] bg-gradient-to-b from-primary/10 to-secondary/5"
+          style={{ paddingTop: 'var(--header-height)' }}
+        >
           <div className="flex flex-col px-4 lg:px-6 py-6 gap-6">
             <Outlet />
           </div>

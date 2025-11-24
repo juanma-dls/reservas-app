@@ -10,6 +10,8 @@ import { NotFoundPage } from './NotFoundPage';
 import UsersPage from './users/UsersPage';
 import PrivateHomePage from './PrivateHomePage';
 import UserShowPage from './users/UsersShowPage';
+import { UserCreatePage } from './users/UserCreatePage';
+import { UserEditPage } from './users/UserEditPage';
 
 function App() {
   return (
@@ -50,7 +52,9 @@ function App() {
           >
             <Route path="dashboard" element={<PrivateHomePage />} />
             <Route path="users" element={<UsersPage />} />
+            <Route path="users/create" element={<UserCreatePage />} />
             <Route path="users/:id" element={<UserShowPage />} />
+            <Route path="users/:id/edit" element={<UserEditPage />} />
           </Route>
 
           <Route path="*" element={<NotFoundPage />} />

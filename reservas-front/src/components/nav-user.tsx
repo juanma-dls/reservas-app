@@ -27,8 +27,10 @@ import {
 } from '@/components/ui/sidebar';
 import { useAuth } from '@/hooks/useAuth';
 import { ModeToggle } from './mode-toggle';
+import { useNavigate } from 'react-router-dom';
 
 export function NavUser() {
+  const navigate = useNavigate()
   const { user, logout } = useAuth();
   
   const { isMobile } = useSidebar();
@@ -96,9 +98,9 @@ export function NavUser() {
                 <ModeToggle stopPropagation={true} />
               </DropdownMenuItem>
               
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate(`/users/${user.id}`)}>
                 <IconUserCircle />
-                Account
+                Perfil
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <IconCreditCard />
