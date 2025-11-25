@@ -15,7 +15,7 @@ export function Reload({ message = "Cargando datos...", className }: ReloadProps
     )}>
       <Item>
         <ItemMedia>
-          <Spinner className="h-8 w-8" />
+          <Spinner className="size-8" />
         </ItemMedia>
         <ItemContent>
           <ItemTitle className="line-clamp-1">{message}</ItemTitle>
