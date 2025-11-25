@@ -54,7 +54,7 @@ export function UserEditPage() {
     }
   };
 
-    if (loading) return <p className="p-8 text-center"><Reload message="Cargando datos del usuario..." /></p>;
+    if (loading) return <div className="div-8 text-center"><Reload message="Cargando datos del usuario..." /></div>;
   if (!user) return <div className="p-8 text-center text-red-500">Usuario no encontrado o ID inválido.</div>;
 
   type UserLiteralType = 'ADMIN' | 'CUSTOMER' | 'USER';

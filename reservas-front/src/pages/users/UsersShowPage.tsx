@@ -32,7 +32,7 @@ export default function UserShowPage() {
     load();
   }, [id]);
 
-  if (loading) return <p className="text-center py-10"><Reload message="Cargando datos del usuario..." /></p>;
+  if (loading) return <div className="text-center py-10"><Reload message="Cargando datos del usuario..." /></div>;
   if (!user) return <p className="text-center py-10">Usuario no encontrado</p>;
 
   return (
