@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import type { Row } from "@tanstack/react-table";
 import type { User } from "@/types/users/user";
+import { Can } from "@/components/auth/can";
 
 interface DataTableRowActionsProps {
   row: Row<User>;
@@ -45,28 +46,34 @@ export function DataTableRowActions({
         )}
 
         {onEdit && (
-          <DropdownMenuItem onClick={() => onEdit(user)}>
-            Editar
-          </DropdownMenuItem>
+          <Can permissions={['users.edit']}>
+            <DropdownMenuItem onClick={() => onEdit(user)}>
+              Editar
+            </DropdownMenuItem>
+          </Can>
         )}
 
         <DropdownMenuSeparator />
         { !isDeleted ? (
           onDelete && (
-            <DropdownMenuItem
-              className="text-red-600"
-              onClick={() => onDelete(user)}
-            >
-              Eliminar
-            </DropdownMenuItem>
+            <Can permissions={['users.delete']}>
+              <DropdownMenuItem
+                className="text-red-600"
+                onClick={() => onDelete(user)}
+              >
+                Eliminar
+              </DropdownMenuItem>
+            </Can>
           )
         ) : (onRestore && (
-            <DropdownMenuItem
-              className="text-green-600"
-              onClick={() => onRestore(user)}
-            >
-              Restaurar
-            </DropdownMenuItem>
+            <Can permissions={['users.restore']}>
+              <DropdownMenuItem
+                className="text-green-600"
+                onClick={() => onRestore(user)}
+              >
+                Restaurar
+              </DropdownMenuItem>
+            </Can>
           )
         )}
         

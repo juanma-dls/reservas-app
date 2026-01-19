@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IconInnerShadowTop, IconUsers } from '@tabler/icons-react';
+import { IconInnerShadowTop } from '@tabler/icons-react';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import {
@@ -11,18 +11,19 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
-
-const data = {
-  navMain: [
-    {
-      title: 'Users',
-      url: '/users',
-      icon: IconUsers,
-    },
-  ],
-};
+import { useAuth } from '@/hooks/useAuth';
+import { navMain } from '@/config/navigation';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { user } = useAuth();
+  
+  const items = React.useMemo(() => {
+    if (!user) return [];
+    return navMain.filter(
+      item => !item.allowedTypes || item.allowedTypes.includes(user.type),
+    );
+  }, [user]);
+
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -41,7 +42,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={items} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser />

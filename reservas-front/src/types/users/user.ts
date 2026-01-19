@@ -3,7 +3,8 @@ export interface User {
   name: string;
   lastname: string;
   email: string;
-  type?: string;
+  type: 'ADMIN' | 'USER' | 'CUSTOMER';
+  permissions: string[];
   avatar?: string;
   createdAt?: string;
   updatedAt?: string;
