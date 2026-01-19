@@ -93,7 +93,6 @@ export function UserForm({ initialData, onSubmit, isSubmitting }: UserFormProps)
       if (newPasswordValue.length > 0) {
         (dataToSend as any).newPassword = newPasswordValue;
       }
-      console.log(dataToSend);
     }
     
     await onSubmit(dataToSend);

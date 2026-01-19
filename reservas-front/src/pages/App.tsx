@@ -55,6 +55,7 @@ function App() {
             <Route path="users/create" element={<UserCreatePage />} />
             <Route path="users/:id" element={<UserShowPage />} />
             <Route path="users/:id/edit" element={<UserEditPage />} />
+            <Route path="/profile" element={<UserShowPage isProfile />} />
           </Route>
 
           <Route path="*" element={<NotFoundPage />} />
