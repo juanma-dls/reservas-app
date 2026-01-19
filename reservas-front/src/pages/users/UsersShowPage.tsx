@@ -9,7 +9,6 @@ import { formatDateTime } from "@/utils/formtDate";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import type { User } from "@/types/users/user";
 import { Reload } from "@/components/ui/reload";
-import { Can } from "@/components/auth/can";
 import { getMe } from "@/services/auth";
 
 interface UserShowPageProps {
@@ -78,11 +77,9 @@ export default function UserShowPage({ isProfile }: UserShowPageProps) {
                 <Button variant="outline" onClick={() => navigate(-1)} className="min-w-[100px]">
                   <ArrowLeft className="w-4 h-4 mr-2" /> Volver
                 </Button>
-                <Can permissions={['users.edit']}>
-                  <Button onClick={() => navigate(`/users/${user.id}/edit`)}>
-                    <Pencil className="w-4 h-4 mr-2" /> Editar
-                  </Button>
-                </Can>
+                <Button onClick={() => navigate(`/users/${user.id}/edit`)} className="min-w-[100px]">
+                  <Pencil className="w-4 h-4 mr-2" /> Editar
+                </Button>
               </div>
             </div>
           </div>
