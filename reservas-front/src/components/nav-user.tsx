@@ -2,7 +2,6 @@ import {
   IconCreditCard,
   IconDotsVertical,
   IconLogout,
-  IconNotification,
   IconUserCircle,
 } from '@tabler/icons-react';
 import {
@@ -98,17 +97,13 @@ export function NavUser() {
                 <ModeToggle stopPropagation={true} />
               </DropdownMenuItem>
               
-              <DropdownMenuItem onClick={() => navigate(`/users/${user.id}`)}>
+              <DropdownMenuItem onClick={() => navigate(`/profile`)}>
                 <IconUserCircle />
                 Perfil
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <IconCreditCard />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconNotification />
-                Notifications
+                Pagos Realizados
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

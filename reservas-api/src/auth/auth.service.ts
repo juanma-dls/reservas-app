@@ -6,6 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { RegisterDto } from './dto/register.dto';
 import { UsersService } from 'src/users/users.service';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { ROLE_PERMISSIONS } from './permissions';
 
 @Injectable()
 export class AuthService {
@@ -25,12 +26,15 @@ export class AuthService {
 
     if (isValid) {
       const { password: _, ...userWithoutPassword } = foundUser;
+      const permissions = ROLE_PERMISSIONS[foundUser.type] ?? [];
       const token = this.jwtService.sign({
         id: foundUser.id,
         email: foundUser.email,
+        type: foundUser.type,
       });
 
-      return { token, user: userWithoutPassword };
+      const userComplete = { ...userWithoutPassword, permissions };
+      return { token, user: userComplete };
     }
   }
 
@@ -51,8 +55,10 @@ export class AuthService {
       email: newUser.email,
     });
 
+    const permissions = ROLE_PERMISSIONS[newUser.type] ?? [];
+
     return {
-      user: newUser,
+      user: { ...newUser, permissions },
       token,
     };
   }

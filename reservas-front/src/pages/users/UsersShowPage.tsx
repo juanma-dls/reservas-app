@@ -9,19 +9,23 @@ import { formatDateTime } from "@/utils/formtDate";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import type { User } from "@/types/users/user";
 import { Reload } from "@/components/ui/reload";
+import { getMe } from "@/services/auth";
 
-export default function UserShowPage() {
-  const { id } = useParams<{ id: string }>();
+interface UserShowPageProps {
+  isProfile?: boolean;
+}
+
+export default function UserShowPage({ isProfile }: UserShowPageProps) {
+  const { id: paramId } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!id) return;
     const load = async () => {
       try {
-        const data = await getUserById(id);
+        const data = isProfile ? await getMe() : await getUserById(paramId!);
         setUser(data);
       } catch (err) {
         console.error("Error loading user", err);
@@ -30,7 +34,7 @@ export default function UserShowPage() {
       }
     };
     load();
-  }, [id]);
+  }, [paramId, isProfile]);
 
   if (loading) return <div className="text-center py-10"><Reload message="Cargando datos del usuario..." /></div>;
   if (!user) return <p className="text-center py-10">Usuario no encontrado</p>;
@@ -39,8 +43,14 @@ export default function UserShowPage() {
     <div className="w-full px-4 py-12 sm:px-6 lg:px-8">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-3xl font-extrabold tracking-tight">Detalle del usuario</h1>
-          <p className="text-lg text-muted-foreground mt-1">Información completa de la cuenta.</p>
+          <h1 className="text-3xl font-extrabold tracking-tight">
+            {isProfile ? "Mi perfil" : "Detalle del usuario"}
+          </h1>
+          <p className="text-lg text-muted-foreground mt-1">
+            {isProfile
+              ? "Aquí puedes ver y editar tu información personal."
+              : "Información completa de la cuenta."}
+          </p>
         </div>
       </div>
 
