@@ -18,6 +18,10 @@ interface FindByQueryStrings extends Omit<FindByParams, 'includeDeleted'> {
   includeDeleted?: string;
 }
 
+interface FindByQueryStrings extends Omit<FindByParams, 'includeDeleted'> {
+  includeDeleted?: string;
+}
+
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
