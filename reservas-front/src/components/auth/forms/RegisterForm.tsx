@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
 import type { RegisterPayload } from '@/types/auth';
 import { useAuth } from '@/hooks/useAuth';
+import { IconEye, IconEyeOff } from '@tabler/icons-react';
 
 
 export function RegisterForm({
@@ -29,6 +30,8 @@ export function RegisterForm({
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const authContext = useAuth();
   const navigate = useNavigate();
@@ -124,16 +127,29 @@ export function RegisterForm({
           </FieldDescription>
         </Field>
         
-        {/* Contraseña */}
         <Field>
           <FieldLabel htmlFor="password">Contraseña</FieldLabel>
-          <Input 
-            id="password" 
-            type="password" 
-            required 
-            value={form.password}
-            onChange={handleInputChange}
-          />
+          <div className="relative">
+            <Input 
+              id="password" 
+              type={showPassword ? "text" : "password"}
+              required 
+              value={form.password}
+              onChange={handleInputChange}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-sm text-gray-500 hover:text-gray-700"
+            >
+              {showPassword ? (
+                <IconEyeOff size={20} />
+              ) : (
+                <IconEye size={20} />
+              )}
+            </button>
+          </div>
+          
           <FieldDescription
             className={
               form.password.length === 0
@@ -149,13 +165,27 @@ export function RegisterForm({
         
         <Field>
           <FieldLabel htmlFor="confirmPassword">Confirmar contraseña</FieldLabel>
-          <Input 
-            id="confirmPassword"
-            type="password" 
-            required 
-            value={form.confirmPassword}
-            onChange={handleInputChange}
-          />
+          <div className="relative">
+            <Input 
+              id="confirmPassword"
+              type={showConfirmPassword ? "text" : "password"} 
+              required 
+              value={form.confirmPassword}
+              onChange={handleInputChange}
+            />
+            <button
+              type="button"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-sm text-gray-500 hover:text-gray-700"
+            >
+              {showConfirmPassword ? (
+                <IconEyeOff size={20} />
+              ) : (
+                <IconEye size={20} />
+              )}
+            </button>
+          </div>
+          
           <FieldDescription
             className={
               form.confirmPassword.length === 0
