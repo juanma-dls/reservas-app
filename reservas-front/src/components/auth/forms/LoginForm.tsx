@@ -15,24 +15,26 @@ import {
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { login } from '@/services/auth';
 import type { LoginPayload } from '@/types/auth';
 import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { useAlert } from '@/services/AlertProvider';
 import { Loader2 } from 'lucide-react';
+import { IconEye, IconEyeOff } from "@tabler/icons-react";
 
 export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) {
   const [form, setForm] = useState<LoginPayload>({ email: '', password: '' });
   const [, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { setAlert } = useAlert();
+  const [showPassword, setShowPassword] = useState(false);
 
   const authContext = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
     setIsLoading(true);
@@ -102,16 +104,29 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
                     ¿Olvidó su contraseña?
                   </a>
                 </div>
-                <Input
-                  id="password"
-                  type="password"
-                  className="h-11"
-                  required
-                  value={form.password}
-                  onChange={(e) =>
-                    setForm({ ...form, password: e.target.value })
-                  }
-                />
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    className="h-11 pr-10"
+                    required
+                    value={form.password}
+                    onChange={(e) =>
+                      setForm({ ...form, password: e.target.value })
+                    }
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-sm text-gray-500 hover:text-gray-700"
+                  >
+                    {showPassword ? (
+                      <IconEyeOff size={20} />
+                    ) : (
+                      <IconEye size={20} />
+                    )}
+                  </button>
+                </div>
               </Field>
               <Button 
                 type="submit" 

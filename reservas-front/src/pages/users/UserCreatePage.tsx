@@ -14,6 +14,7 @@ export function UserCreatePage() {
     setIsSubmitting(true);
     
     if (!data.password || data.password.length < 8) {
+        console.log(data);
         setAlert({ 
             type: 'error', 
             title: 'Error', 

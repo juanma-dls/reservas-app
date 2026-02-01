@@ -70,29 +70,25 @@ export function UserForm({ initialData, onSubmit, isSubmitting }: UserFormProps)
       }
     }
 
-    const { 
-      confirmPassword,
-      avatar,
-      password,
-      newPassword,
-      ...dataToSend 
-    } = formData;
-    
-    if (isEditing) {
-      const newPasswordValue = formData.password || '';
-      const currentPasswordValue = formData.confirmPassword || '';
-      
-      delete dataToSend.email;
+    let dataToSend: Partial<UserFormPayload> = {
+      name: formData.name,
+      lastname: formData.lastname,
+      email: formData.email,
+      type: formData.type,
+      avatar: formData.avatar,
+    };
 
-      if (!currentPasswordValue) {
-        return;
-      }
-
+    if (!isEditing) {
+      dataToSend.password = formData.password;
+    } else {
+      if (!currentPasswordValue) return;
       (dataToSend as any).currentPassword = currentPasswordValue;
 
-      if (newPasswordValue.length > 0) {
-        (dataToSend as any).newPassword = newPasswordValue;
+      if (passwordValue.length > 0) {
+        (dataToSend as any).newPassword = passwordValue;
       }
+
+      delete dataToSend.email;
     }
     
     await onSubmit(dataToSend);
